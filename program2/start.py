@@ -51,13 +51,13 @@ def hash_menu():
 			case '3':
 				key = input('Type the element key: ')
 				value = input('Type the element value: ')
-				print(set_element(key, value))
+				add_hash(key, value)
 			case '4':
 				key = input('Type the element key: ')
 				print(get_element(key))
 			case '5':
 				key = input('Type the key to remove the element: ')
-				print(remove_element(key))
+				rm_hash(key)
 			case '6':
 				all_keys()
 			case '7':
@@ -90,9 +90,9 @@ def queue_menu():
 				queue_search()
 			case '3':
 				element = input('Type the element: ')
-				print(queuing(element))
+				add_queue(element)
 			case '4':
-				print(dequeuing())
+				rm_queue()
 			case '5':
 				show_queue()
 			case '0':
@@ -122,9 +122,9 @@ def stack_menu():
 				stack_search()
 			case '3':
 				element = input('Type the element: ')
-				print(stacking(element))
+				add_stack(element)
 			case '4':
-				print(unstacking())
+				rm_stack()
 			case '5':
 				show_stack()
 			case '0':
