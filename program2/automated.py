@@ -4,6 +4,7 @@ from queue import *
 from time import time
 import tracemalloc
 
+
 def only_name():
 	file = open('../files.txt', 'r')
 	files = file.readlines()
@@ -12,74 +13,91 @@ def only_name():
 		files[i] = files[i].replace('.txt\n', '')
 	return files
 
-
-def show_files():
+def measure(func, file, *args):
 	tracemalloc.start()
 	first = int(time() * 1000)
 
-	print(only_name())
+	execute = func(*args)
 
 	last = int(time() * 1000)
 	_time = (last - first)
 	print(f'{_time} milliseconds')
 
 	current, peak = tracemalloc.get_traced_memory()
-	print(f"Memory peak: {peak / 10**6} MB")
 	tracemalloc.stop()
+	peak = peak / (1024**2)
+	print(f'Memory peak: {peak:.3} MB')
+	f = open(file, "a")
 
+	elements = 1
+	if func.__name__[:5] == "_fill":
+		elements = 10000
+	elif func.__name__[-6:] == "search" :
+		elements = 7
+
+	f.write(f"{_time},{peak:.3},{elements}\n")
+	f.close()
+
+
+def show_files():
+	print(only_name())
 
 def fill_table():
-	tracemalloc.start()
-	first = int(time() * 1000)
+	measure(_fill_table, "add_hash.txt")
 
+def fill_stack():
+	measure(_fill_stack, "add_stack.txt")
+
+def fill_queue():
+	measure(_fill_queue, "add_queue.txt")
+
+def hash_search():
+	measure(_hash_search, "search_hash.txt")
+
+def stack_search():
+	measure(_stack_search, "search_stack.txt")
+
+def queue_search():
+	measure(_queue_search, "search_queue.txt")
+
+def add_hash(key, value):
+	measure(_add_hash, "add_hash.txt", key, value)
+
+def add_stack(element):
+	measure(_add_stack, "add_stack.txt", element)
+
+def add_queue(element):
+	measure(_add_queue, "add_queue.txt", element)
+
+def rm_stack():
+	measure(_rm_stack, "remove_stack.txt")
+
+def rm_queue():
+	measure(_rm_queue, "remove_queue.txt")
+
+def rm_hash(key):
+	measure(_rm_hash, "remove_hash.txt", key)
+
+
+def _fill_table():
 	files = only_name()
 	increase_table(len(files))
 	set_all(files)
 	print(f"Hash table filled with {len(files)} elements")
 
-	last = int(time() * 1000)
-	_time = (last-first)
-	print(f"{_time} milliseconds")
 
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak: {peak / 10**6} MB')
-	tracemalloc.stop()
-
-def fill_stack():
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _fill_stack():
 	files = only_name()
 	stacking_all(files)
 	print(f"{len(files)} elements were stacked")
-	last = int(time() * 1000)
-	_time = (last-first)
-	print(f"{_time} milliseconds")
 
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak: {peak / 10**6} MB')
-	tracemalloc.stop()
-
-def fill_queue():
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _fill_queue():
 	files = only_name()
 	queuing_all(files)
 	print(f"{len(files)} elements were queued")
 
-	last = int(time() * 1000)
-	_time = (last-first)
-	print(f"{_time} milliseconds")
 
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak: {peak / 10**6} MB')
-	tracemalloc.stop()
-
-def hash_search():
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _hash_search():
 	print("Searching for the 1th value.............")
 	print(get_element('4cfda2fa45d445039a1b3f44018f5429'))
 	print("Searching for the 100th value.............")
@@ -93,18 +111,7 @@ def hash_search():
 	print(get_element('902bbabf86c74bb49d4bee1c73cc7eef'))
 	print(get_element('a3a6807dca8e4fe8b0e4d7ef91038faa'))
 
-	last = int(time() * 1000)
-	_time = (last-first)
-	print(f"{_time} milliseconds")
-
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak: {peak / 10**6}')
-	tracemalloc.stop()
-
-def stack_search():
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _stack_search():
 	print("Searching for the last three.............")
 	print(unstacking())
 	print(unstacking())
@@ -118,18 +125,8 @@ def stack_search():
 	print("Searching for the 1th element.............")
 	print(unstacking_until(1))
 
-	last = int(time() * 1000)
-	_time = (last - first)
-	print(f"{_time} milliseconds")
 
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak = {peak / 10**6} MB')
-	tracemalloc.stop()
-
-def queue_search():
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _queue_search():
 	print("Searching for the 1th element.............")
 	print(dequeuing_until(1))
 	print("Searching for the 100th element.............")
@@ -143,99 +140,22 @@ def queue_search():
 	print(dequeuing_until(1))
 	print(dequeuing_until(1))
 
-	last = int(time() * 1000)
-	_time = (last - first)
-	print(f"{_time} milliseconds")
 
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak = {peak / 10**6} MB')
-	tracemalloc.stop()
-
-def add_queue(element):
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _add_queue(element):
 	print(queuing(element))
 
-	last = int(time() * 1000)
-	_time = (last - first)
-	print(f'{_time} milliseconds')
-
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak: {peak / 10**6} MB')
-	tracemalloc.stop()
-
-
-def rm_queue():
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _rm_queue():
 	print(dequeuing())
 
-	last = int(time() * 1000)
-	_time = (last - first)
-	print(f'{_time} milliseconds')
-
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak: {peak / 10**6} MB')
-	tracemalloc.stop()
-
-
-def add_stack(element):
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _add_stack(element):
 	print(stacking(element))
 
-	last = int(time() * 1000)
-	_time = (last - first)
-	print(f'{_time} milliseconds')
-
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak: {peak / 10**6} MB')
-	tracemalloc.stop()
-
-
-def rm_stack():
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _rm_stack():
 	print(unstacking())
 
-	last = int(time() * 1000)
-	_time = (last - first)
-	print(f'{_time} milliseconds')
-
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak: {peak / 10**6} MB')
-	tracemalloc.stop()
-
-
-def add_hash(key, value):
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _add_hash(key, value):
 	print(set_element(key, value))
 
-	last = int(time() * 1000)
-	_time = (last - first)
-	print(f'{_time} milliseconds')
-
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak: {peak / 10**6} MB')
-	tracemalloc.stop()
-
-
-def rm_hash(key):
-	tracemalloc.start()
-	first = int(time() * 1000)
-
+def _rm_hash(key):
 	print(remove_element(key))
 
-	last = int(time() * 1000)
-	_time = (last - first)
-	print(f'{_time} milliseconds')
-
-	current, peak = tracemalloc.get_traced_memory()
-	print(f'Memory peak: {peak / 10**6} MB')
-	tracemalloc.stop()

@@ -36,7 +36,7 @@ def prints_menu():
 		print("Type 2 to print a list ordered by Bubble Sort")
 		print("Type 3 to print a list ordered by Selection Sort")
 		print("Type 4 to print a list ordered by Insertion Sort")
-		print("Type 0 to returning to the initial menu"
+		print("Type 0 to returning to the initial menu")
 		option = input()
 		match(option):
 			case '1':
