@@ -2,7 +2,7 @@ queue = []
 
 def queuing(element):
 	queue.append(element)
-	return f"{element} queued"
+	return f"{element} queued - Queue has now {len(queue)} elements"
 
 def dequeuing():
 	if len(queue) > 0:

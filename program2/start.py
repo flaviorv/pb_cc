@@ -1,4 +1,5 @@
 from automated import *
+from graph import graph, erase_data
 
 def init_menu():
 	option = ''
@@ -9,6 +10,7 @@ def init_menu():
 		print('Type 2 to Queue')
 		print('Type 3 to Stack')
 		print('Type 4 to print the data that will be used')
+		print('Type 5 to charts')
 		print('Type 0 to exit')
 		print('----------------------------------------------')
 		option = input()
@@ -21,12 +23,41 @@ def init_menu():
 				stack_menu()
 			case '4':
 				show_files()
+			case '5':
+				charts_menu()
 			case '0':
 				print('Exiting the application')
 				option = 'exit_app'
 			case _:
 				print('Invalid command')
 
+
+
+
+def charts_menu():
+	option = ""
+	while option != "exit_chart":
+		print('================== CHARTS ==================')
+		print('Type 1 to show the search chart')
+		print('Type 2 to show the add chart')
+		print('Type 3 to show the remove chart')
+		print('Type 4 to erase the data')
+		print('Type 0 to return to the initial menu')
+		option = input()
+		match(option):
+			case '1':
+				graph("search")
+			case '2':
+				graph("add")
+			case '3':
+				graph("remove")
+			case '4':
+				erase_data()
+			case '0':
+				print("Returning...")
+				option = 'exit_chart'
+			case _:
+				print("Invalid command")
 
 def hash_menu():
 	option = ''
@@ -98,7 +129,8 @@ def queue_menu():
 			case '0':
 				print('Returning...')
 				option = 'exit_queue'
-
+			case _:
+				print('Invalid command')
 
 
 
@@ -130,6 +162,8 @@ def stack_menu():
 			case '0':
 				print('Returning...')
 				option = 'exit_stack'
+			case _:
+				print('Invalid command')
 
 
 
