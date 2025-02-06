@@ -1,18 +1,23 @@
 [
   {
-    "pivot_type": "start",
-    "sec": 0.38966666666666666
+    "arr_type": "unordered",
+    "start": 0.0186,
+    "middle": 0.0197,
+    "end": 0.0186,
+    "random": 0.0243
   },
   {
-    "pivot_type": "middle",
-    "sec": 0.4086666666666667
+    "arr_type": "ordered",
+    "start": 0.9281,
+    "middle": 0.0144,
+    "end": 3.9933,
+    "random": 0.0216
   },
   {
-    "pivot_type": "end",
-    "sec": 0.4103666666666667
-  },
-  {
-    "pivot_type": "random",
-    "sec": 0.43416666666666665
+    "arr_type": "inverse",
+    "start": 2.5038,
+    "middle": 0.0146,
+    "end": 2.5041,
+    "random": 0.0189
   }
 ]
