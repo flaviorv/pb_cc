@@ -1,0 +1,50 @@
+[
+  {
+    "pivot_type": "start",
+    "sec": 0.3357
+  },
+  {
+    "pivot_type": "middle",
+    "sec": 0.3764
+  },
+  {
+    "pivot_type": "end",
+    "sec": 0.4118
+  },
+  {
+    "pivot_type": "random",
+    "sec": 0.4394
+  },
+  {
+    "pivot_type": "start",
+    "sec": 0.4064
+  },
+  {
+    "pivot_type": "middle",
+    "sec": 0.4005
+  },
+  {
+    "pivot_type": "end",
+    "sec": 0.3844
+  },
+  {
+    "pivot_type": "random",
+    "sec": 0.427
+  },
+  {
+    "pivot_type": "start",
+    "sec": 0.4269
+  },
+  {
+    "pivot_type": "middle",
+    "sec": 0.4491
+  },
+  {
+    "pivot_type": "end",
+    "sec": 0.4349
+  },
+  {
+    "pivot_type": "random",
+    "sec": 0.4361
+  }
+]

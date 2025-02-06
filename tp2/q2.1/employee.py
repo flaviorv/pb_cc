@@ -1,9 +1,13 @@
-from random import uniform, choice, randrange
+from random import uniform, randrange
 from decimal import Decimal, ROUND_HALF_DOWN
-import copy
+from rw_files import save
+import copy, time
+from fake_names import create_names
 
 class Employee():
     employees = []
+
+    names = create_names(100_000)
 
     def __init__(self, name: str, salary: float):
         self.name = name
@@ -21,11 +25,19 @@ class Employee():
     def get_copy():
         return copy.deepcopy(Employee.employees)
 
+
     def __str__(self):
         return f"Salary: {self.salary:<10} Employee: {self.name:<10}"
 
+    @staticmethod
+    def fill():
+        names = copy.deepcopy(Employee.names)
+        for _ in range(len(names)):
+            Employee(names.pop(), uniform(500, 10000))
+
     @staticmethod    
-    def sorting (arr):
+    def sorting (pivot_type):
+        arr = Employee.employees
         if len(arr) <= 1:
             return arr
         
@@ -35,7 +47,9 @@ class Employee():
             start, end = stack.pop()
             if start >= end:
                 continue
-            pivot_index = Employee.__sorting_pivot(arr, start, end)
+            
+            pivot_index = Employee.__choosing_pivot(start, end, pivot_type)
+            pivot_index = Employee.__sorting_pivot(arr, start, end, pivot_index)
 
             stack.append((start, pivot_index-1))
             stack.append((pivot_index+1, end))
@@ -43,10 +57,24 @@ class Employee():
         return arr
     
     @staticmethod
-    def __sorting_pivot(arr, start, end):
-        pivot_index = randrange(start, end+1)
-        arr[pivot_index], arr[end] = arr[end], arr[pivot_index]
-        pivot_index = end
+    def __choosing_pivot(start, end, pivot_type):
+        match(pivot_type):
+            case "start":
+                return start
+            case "middle":
+                index = (start + end) // 2
+                return index
+            case "end":
+                return end
+            case "random":
+                return randrange(start, end+1)
+
+
+    @staticmethod
+    def __sorting_pivot(arr, start, end, pivot_index):
+        if pivot_index != end:
+            arr[pivot_index], arr[end] = arr[end], arr[pivot_index]
+            pivot_index = end
         pivot = arr[pivot_index]
         
         i = start-1
@@ -60,28 +88,33 @@ class Employee():
         arr[new_pivot_index], arr[pivot_index] = arr[pivot_index], arr[new_pivot_index]
         return new_pivot_index
 
+def main():
+    pivot_types = ["start", "middle", "end", "random"]
+    data = []
+    samples = 3
 
-names = ["Alice", "Bruno", "Carlos", "Daniela", "Eduardo", "Fernanda", "Gabriel", "Helena", "Igor", "Juliana", "Kevin", "Larissa"]
+    for _ in range(samples):
+        for pivot_type in pivot_types:
+        
+            Employee.fill()
+            unordered = Employee.get_copy()
+            start = round(time.time(), 4)
+            Employee.sorting(pivot_type)
+            end = round(time.time(), 4)
+            sec = round((end - start), 4)
+            data.append({"pivot_type": pivot_type, "sec": sec})
+            
+            ordered = Employee.get_copy()
+            
+            print(f"\033[34m \033[1m{"Unordered":>26} {"Sorted":>55}")
+            print("\033[1m \033[34m---------------------------------------------------------------------------------------------------------------------------")
+            for u, o in zip(unordered, ordered):
+                print(f"\033[34m | \033[31m \033[1m {u.__str__():<55} \033[34m | \033[32m \033[1m{o.__str__():<55} \033[1m \033[34m |")
+            print("\033[1m \033[34m---------------------------------------------------------------------------------------------------------------------------")
 
-e1 = Employee(choice(names), uniform(500, 10000))
-e2 = Employee(choice(names), uniform(500, 10000))
-e3 = Employee(choice(names), uniform(500, 10000))
-e4 = Employee(choice(names), uniform(500, 10000))
-e5 = Employee(choice(names), uniform(500, 10000))
-e6 = Employee(choice(names), uniform(500, 10000))
-e7 = Employee(choice(names), uniform(500, 10000))
-e8 = Employee(choice(names), uniform(500, 10000))
-e9 = Employee(choice(names), uniform(500, 10000))
-e10 = Employee(choice(names), uniform(500, 10000))
-e11 = Employee(choice(names), uniform(500, 10000))
-e12 = Employee(choice(names), uniform(500, 10000))
+            Employee.employees = []
 
-unordered = Employee.get_copy()
-Employee.sorting(Employee.employees)
-ordered = Employee.get_copy()
+    save(data, "quick_sort_times.json")
 
-print(f"{"Unordered":>24} {"Sorted":>50}")
-for u, o in zip(unordered, ordered):
-    print(f"\033[31m \033[1m {u.__str__():<50}\033[0m  \033[32m \033[1m{o.__str__():<50}")
-
-
+if __name__ == "__main__":
+    main()
