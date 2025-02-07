@@ -3,9 +3,6 @@ import numpy as np
 import time
 
 def quick_select(array, low, high, k):
-    if low == high:
-        return array[low]
-    
     pivot_index = _sorting_pivot(array, low, high)
 
     if k == pivot_index:
@@ -15,26 +12,25 @@ def quick_select(array, low, high, k):
         return quick_select(array, low, pivot_index -1 ,k)
     
     else:
-        return quick_select(array, pivot_index +1, high, k)
+        return quick_select(array, pivot_index +1, high, k) 
+            
     
-
 def _sorting_pivot(array, low, high):
     pivot_index = (low+high)//2
     array[high], array[pivot_index] = array[pivot_index], array[high]
-    pivot = array[high]
+
     i = low -1
     for j in range(low, high):
-        if array[j] <= pivot:
+        if array[j] <= array[high]:
             i+=1
             array[i], array[j] = array[j], array[i]
-
-    array[i+1], array[high] = array[high], array[i+1]
-    return i + 1
-
+   
+    array[i+1], array[high] = array[high], array[i+1]   
+    return i+1
 
 
 def main():
-    length = 10_000
+    length = 3
     
     random1 = np.random.randint(1, 1_001, size=length)
     random2 = np.random.randint(1, 1_001, size=length)
@@ -60,19 +56,18 @@ def main():
         "inverse": inverse, 
     }
 
-
     ks = [
         randrange(1, length+1),
         randrange(1, length+1),
-        randrange((length//2)),
+        (length//2) if (length//2) > 0 else 1,
         length,
-        1,
+        1
     ]
-
-    for name, array in lists.items():
         
+    for name, array in lists.items():
         for k in ks:
-            
+            print(f"Before: {array}")
+            print(f"k: {k}")
             start = time.time()
             result = quick_select(array, 0, len(array) -1, k -1)
             end = time.time()
@@ -89,7 +84,7 @@ def main():
                     abbreviation = "rd"
                 case _:
                     abbreviation = "th"
-
+            print(f"After: {array}")
             print(f"\33[1m\33[32m{_k+abbreviation:>10} smaller: \33[0m{result:<10} \33[31mArray: \33[0m{name:<10} \33[30mTime: \33[0m{sec}s")
 
 if __name__ == "__main__":
