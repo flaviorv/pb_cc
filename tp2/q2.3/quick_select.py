@@ -30,7 +30,7 @@ def _sorting_pivot(array, low, high):
 
 
 def main():
-    length = 3
+    length = 10_000
     
     random1 = np.random.randint(1, 1_001, size=length)
     random2 = np.random.randint(1, 1_001, size=length)
