@@ -89,3 +89,43 @@ class DLinkedList:
             count -= 1
         return f"Position {position} out of range"
 
+
+    def show(self, direction):
+        if direction == "head_to_tail":
+            self.__show_head_to_tail()
+        elif direction == "tail_to_head":
+            self.__show_tail_to_head()
+        else:
+            print("Invalid direction")
+            
+        
+
+    def __show_head_to_tail(self):
+        if self.tail == None and self.head == None:
+            print(f"\33[1m\33[34mEmpty list\33[0m")
+        elif self.head != None and self.tail == None:
+            print(f"\33[1m\33[34m{self.head.value}\33[0m")
+        elif self.head == None and self.tail!= None:
+            print(f"\33[1m\33[34m{self.tail.value}\33[0m")
+        else:
+            current = self.head
+            while current.next != None:
+                print(f"\33[1m\33[34m{current.value}", end="->\33[0m")
+                current = current.next
+            print(f"\33[1m\33[34m{self.tail.value}\33[0m")
+    
+
+    def __show_tail_to_head(self):
+        if self.tail == None and self.head == None:
+            print(f"\33[1m\33[34mEmpty list\33[0m")
+        elif self.head != None and self.tail == None:
+            print(f"\33[1m\33[34m{self.head.value}\33[0m")
+        elif self.head == None and self.tail!= None:
+            print(f"\33[1m\33[34m{self.tail.value}\33[0m")
+        else:
+            current = self.tail
+            while current.previous != None:
+                print(f"\33[1m\33[34m{current.value}", end="->\33[0m")
+                current = current.previous
+            print(f"\33[1m\33[34m{self.head.value}\33[0m")
+
