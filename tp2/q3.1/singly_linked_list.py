@@ -8,6 +8,7 @@ class LinkedList:
     def __init__(self):
         self.head = None
     
+
     def append(self, value):
         node = Node(value)
         if not self.head:
@@ -21,8 +22,8 @@ class LinkedList:
         current.next = node
         print(f"\33[32mValue {value} was appended at the end\33[0m", end=" ")
         self.show()
-
     
+
     def insert(self, value):
         node = Node(value)
         old = self.head
@@ -31,8 +32,6 @@ class LinkedList:
         print(f"\33[32mValue {value} was iserted at the begining\33[0m", end=" ")
         self.show()
 
-
-            
 
     def remove(self, value):
         current = self.head
@@ -74,23 +73,3 @@ class LinkedList:
             
             _current = _current.next
 
-            
-
-        
-l = LinkedList()
-l.append(4)
-l.append(3)
-l.append(2)
-l.append(1)
-l.remove(4)
-l.remove(5)
-l.remove(1)
-l.remove(2)
-l.remove(2)
-l.remove(3)
-l.insert(1)
-l.insert(2)
-l.insert(3)
-l.remove(2)
-l.remove(3)
-l.remove(1)
