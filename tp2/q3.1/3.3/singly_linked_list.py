@@ -59,7 +59,7 @@ class LinkedList:
                 print(f"\33[31mValue {value} not found to be removed\33[0m", end=" ")
                 self.show()
 
-                
+
     def show(self):
         if not self.head:
             print(f"\33[1m\33[30mNo nodes\33[0m")
@@ -73,7 +73,11 @@ class LinkedList:
             
             _current = _current.next
 
+
     def search(self, value):
+        if self.head == None:
+            return "Empty list"
+
         current = self.head
         count = 0
         while current != None:
@@ -85,3 +89,14 @@ class LinkedList:
         return "Node not found"
             
 
+    def invert(self):
+        current = self.head
+        if self.head != None:
+            inverted = LinkedList()
+            while current != None:
+                inverted.insert(current.value)
+                current = current.next
+            inverted.show()
+        else:
+            return "Empty list"
+        
