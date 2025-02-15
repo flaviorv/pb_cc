@@ -40,6 +40,26 @@ class TestDLinkedList(unittest.TestCase):
         self.assertEqual(dll.head.next.next.next.value, 40)
         self.assertEqual(dll.tail.previous.previous.previous.value, 10)
 
+    def append_and_insert(self):
+        dll = doubly_linked_list.DLinkedList()
+        dll.append(10)
+        dll.insert(20)
+        self.assertEqual(dll.tail.value, 10)
+        self.assertEqual(dll.head.value, 20)
+        self.assertEqual(dll.head.next.value, 10)
+        self.assertEqual(dll.tail.previous.value, 20)
+
+    def insert_and_append(self):
+        dll = doubly_linked_list.DLinkedList()
+        dll.insert(20)
+        dll.append(10)
+        self.assertEqual(dll.tail.value, 10)
+        self.assertEqual(dll.head.value, 20)
+        self.assertEqual(dll.head.next.value, 10)
+        self.assertEqual(dll.tail.previous.value, 20)
+        
+
+
     def test_remove(self):
         dll = doubly_linked_list.DLinkedList()
         dll.append(10)
@@ -83,6 +103,52 @@ class TestDLinkedList(unittest.TestCase):
         self.assertEqual(dll.remove(-10), "Position -10 out of range")
 
 
+    def test_show_head_to_tail_with_append(self):
+        dll = doubly_linked_list.DLinkedList()
+        dll.show("anything")
+        dll.show("head_to_tail")
+        dll.append(10)
+        dll.show("head_to_tail")
+        dll.append(20)
+        dll.append(30)
+        dll.append(40)
+        dll.append(50)
+        dll.show("head_to_tail")
+
+    def test_show_tail_to_head_with_append(self):
+        dll = doubly_linked_list.DLinkedList()
+        dll.show("anything")
+        dll.show("tail_to_head")
+        dll.append(10)
+        dll.show("tail_to_head")
+        dll.append(20)
+        dll.append(30)
+        dll.append(40)
+        dll.append(50)
+        dll.show("tail_to_head")
+
+
+    def test_show_tail_to_head_with_insert(self):
+        dll = doubly_linked_list.DLinkedList()
+        dll.show("tail_to_head")
+        dll.insert(10)
+        dll.show("tail_to_head")
+        dll.insert(20)
+        dll.insert(30)
+        dll.insert(40)
+        dll.insert(50)
+        dll.show("tail_to_head")
+
+    def test_show_head_to_tail_with_insert(self):
+        dll = doubly_linked_list.DLinkedList()
+        dll.show("head_to_tail")
+        dll.insert(10)
+        dll.show("head_to_tail")
+        dll.insert(20)
+        dll.insert(30)
+        dll.insert(40)
+        dll.insert(50)
+        dll.show("head_to_tail")
 
 if __name__ == "__main__":
     unittest.main()
