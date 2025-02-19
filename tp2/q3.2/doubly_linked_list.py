@@ -44,12 +44,14 @@ class DLinkedList:
         if position == 1 or position == "head":
             new_head = self.head.next
             self.head = new_head
-            self.head.previous = None
-        
+            if self.head != None:
+                self.head.previous = None
+            
         elif position == -1 or position == "tail":
             new_tail = self.tail.previous
             self.tail = new_tail
-            self.tail.next = None
+            if self.tail != None:
+                self.tail.next = None   
 
         else:
             if position > 1:
