@@ -3,7 +3,7 @@ from time import time, sleep
 import parallel_merge_sort
 import sequential_merge_sort
 
-_range = 5
+_range = 100
 length = 3_000_000
 print(f"Creating a list with {length} elements...")
 start = time()

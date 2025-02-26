@@ -90,10 +90,9 @@ cdef divide(long long[:] arr):
         for i in prange(threads, num_threads=threads, schedule="static"):
             low = i*chunk
             high = low + chunk -1
-            left_arr
-            right_arr
-            with gil:
-                print(low, high)
+            if threads-1 == i:
+                high = size -1
+            
             merge_sort(arr, low, high, left_arr, right_arr)
 
     merge(arr, left_arr, right_arr, 0, chunk-1, size-1)
