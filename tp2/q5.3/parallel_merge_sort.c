@@ -18132,6 +18132,7 @@ static PyObject *__pyx_f_19parallel_merge_sort_divide(__Pyx_memviewslice __pyx_v
   unsigned int __pyx_t_7;
   unsigned int __pyx_t_8;
   unsigned int __pyx_t_9;
+  int __pyx_t_10;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -18271,13 +18272,6 @@ static PyObject *__pyx_f_19parallel_merge_sort_divide(__Pyx_memviewslice __pyx_v
  */
         __pyx_t_7 = __pyx_v_threads;
         {
-            unsigned long __pyx_parallel_temp0 = ((unsigned long)0xbad0bad0);
-            unsigned int __pyx_parallel_temp1 = ((unsigned int)0xbad0bad0);
-            unsigned long __pyx_parallel_temp2 = ((unsigned long)0xbad0bad0);
-            const char *__pyx_parallel_filename = NULL; int __pyx_parallel_lineno = 0, __pyx_parallel_clineno = 0;
-            PyObject *__pyx_parallel_exc_type = NULL, *__pyx_parallel_exc_value = NULL, *__pyx_parallel_exc_tb = NULL;
-            int __pyx_parallel_why;
-            __pyx_parallel_why = 0;
             #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
                 #undef likely
                 #undef unlikely
@@ -18288,20 +18282,13 @@ static PyObject *__pyx_f_19parallel_merge_sort_divide(__Pyx_memviewslice __pyx_v
             if (__pyx_t_9 > 0)
             {
                 #ifdef _OPENMP
-                #pragma omp parallel num_threads(__pyx_v_threads) firstprivate(__pyx_t_3, __pyx_t_4, __pyx_t_5) private(__pyx_filename, __pyx_lineno, __pyx_clineno) shared(__pyx_parallel_why, __pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb)
+                #pragma omp parallel num_threads(__pyx_v_threads) private(__pyx_t_10)
                 #endif /* _OPENMP */
                 {
-                    #ifdef _OPENMP
-                    #ifdef WITH_THREAD
-                    PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
-                    #endif
-                    Py_BEGIN_ALLOW_THREADS
-                    #endif /* _OPENMP */
                     #ifdef _OPENMP
                     #pragma omp for lastprivate(__pyx_v_high) firstprivate(__pyx_v_i) lastprivate(__pyx_v_i) lastprivate(__pyx_v_low) schedule(static)
                     #endif /* _OPENMP */
                     for (__pyx_t_8 = 0; __pyx_t_8 < __pyx_t_9; __pyx_t_8++){
-                        if (__pyx_parallel_why < 2)
                         {
                             __pyx_v_i = (unsigned int)(0 + 1 * __pyx_t_8);
                             /* Initialize private variables to invalid values */
@@ -18313,7 +18300,7 @@ static PyObject *__pyx_f_19parallel_merge_sort_divide(__Pyx_memviewslice __pyx_v
  *         for i in prange(threads, num_threads=threads, schedule="static"):
  *             low = i*chunk             # <<<<<<<<<<<<<<
  *             high = low + chunk -1
- *             left_arr
+ *             if threads-1 == i:
  */
                             __pyx_v_low = (__pyx_v_i * __pyx_v_chunk);
 
@@ -18321,159 +18308,50 @@ static PyObject *__pyx_f_19parallel_merge_sort_divide(__Pyx_memviewslice __pyx_v
  *         for i in prange(threads, num_threads=threads, schedule="static"):
  *             low = i*chunk
  *             high = low + chunk -1             # <<<<<<<<<<<<<<
- *             left_arr
- *             right_arr
+ *             if threads-1 == i:
+ *                 high = size -1
  */
                             __pyx_v_high = ((__pyx_v_low + __pyx_v_chunk) - 1);
 
-                            /* "parallel_merge_sort.pyx":95
- *             left_arr
- *             right_arr
- *             with gil:             # <<<<<<<<<<<<<<
- *                 print(low, high)
- *             merge_sort(arr, low, high, left_arr, right_arr)
- */
-                            {
-                                #ifdef WITH_THREAD
-                                PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
-                                #endif
-                                /*try:*/ {
-
-                                  /* "parallel_merge_sort.pyx":96
- *             right_arr
- *             with gil:
- *                 print(low, high)             # <<<<<<<<<<<<<<
- *             merge_sort(arr, low, high, left_arr, right_arr)
+                            /* "parallel_merge_sort.pyx":93
+ *             low = i*chunk
+ *             high = low + chunk -1
+ *             if threads-1 == i:             # <<<<<<<<<<<<<<
+ *                 high = size -1
  * 
  */
-                                  __pyx_t_4 = __Pyx_PyInt_From_unsigned_long(__pyx_v_low); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 96, __pyx_L13_error)
-                                  __Pyx_GOTREF(__pyx_t_4);
-                                  __pyx_t_5 = __Pyx_PyInt_From_unsigned_long(__pyx_v_high); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L13_error)
-                                  __Pyx_GOTREF(__pyx_t_5);
-                                  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 96, __pyx_L13_error)
-                                  __Pyx_GOTREF(__pyx_t_3);
-                                  __Pyx_GIVEREF(__pyx_t_4);
-                                  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_4)) __PYX_ERR(0, 96, __pyx_L13_error);
-                                  __Pyx_GIVEREF(__pyx_t_5);
-                                  if (__Pyx_PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_5)) __PYX_ERR(0, 96, __pyx_L13_error);
-                                  __pyx_t_4 = 0;
-                                  __pyx_t_5 = 0;
-                                  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_t_3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 96, __pyx_L13_error)
-                                  __Pyx_GOTREF(__pyx_t_5);
-                                  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-                                  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-                                }
+                            __pyx_t_10 = ((__pyx_v_threads - 1) == __pyx_v_i);
+                            if (__pyx_t_10) {
 
-                                /* "parallel_merge_sort.pyx":95
- *             left_arr
- *             right_arr
- *             with gil:             # <<<<<<<<<<<<<<
- *                 print(low, high)
+                              /* "parallel_merge_sort.pyx":94
+ *             high = low + chunk -1
+ *             if threads-1 == i:
+ *                 high = size -1             # <<<<<<<<<<<<<<
+ * 
  *             merge_sort(arr, low, high, left_arr, right_arr)
  */
-                                /*finally:*/ {
-                                  /*normal exit:*/{
-                                    #ifdef WITH_THREAD
-                                    __Pyx_PyGILState_Release(__pyx_gilstate_save);
-                                    #endif
-                                    goto __pyx_L14;
-                                  }
-                                  __pyx_L13_error: {
-                                    #ifdef WITH_THREAD
-                                    __Pyx_PyGILState_Release(__pyx_gilstate_save);
-                                    #endif
-                                    goto __pyx_L8_error;
-                                  }
-                                  __pyx_L14:;
-                                }
+                              __pyx_v_high = (__pyx_v_size - 1);
+
+                              /* "parallel_merge_sort.pyx":93
+ *             low = i*chunk
+ *             high = low + chunk -1
+ *             if threads-1 == i:             # <<<<<<<<<<<<<<
+ *                 high = size -1
+ * 
+ */
                             }
 
-                            /* "parallel_merge_sort.pyx":97
- *             with gil:
- *                 print(low, high)
+                            /* "parallel_merge_sort.pyx":96
+ *                 high = size -1
+ * 
  *             merge_sort(arr, low, high, left_arr, right_arr)             # <<<<<<<<<<<<<<
  * 
  *     merge(arr, left_arr, right_arr, 0, chunk-1, size-1)
  */
                             __pyx_f_19parallel_merge_sort_merge_sort(__pyx_v_arr, __pyx_v_low, __pyx_v_high, __pyx_v_left_arr, __pyx_v_right_arr);
-                            goto __pyx_L16;
-                            __pyx_L8_error:;
-                            {
-                                #ifdef WITH_THREAD
-                                PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
-                                #endif
-                                #ifdef _OPENMP
-                                #pragma omp flush(__pyx_parallel_exc_type)
-                                #endif /* _OPENMP */
-                                if (!__pyx_parallel_exc_type) {
-                                  __Pyx_ErrFetchWithState(&__pyx_parallel_exc_type, &__pyx_parallel_exc_value, &__pyx_parallel_exc_tb);
-                                  __pyx_parallel_filename = __pyx_filename; __pyx_parallel_lineno = __pyx_lineno; __pyx_parallel_clineno = __pyx_clineno;
-                                  __Pyx_GOTREF(__pyx_parallel_exc_type);
-                                }
-                                #ifdef WITH_THREAD
-                                __Pyx_PyGILState_Release(__pyx_gilstate_save);
-                                #endif
-                            }
-                            __pyx_parallel_why = 4;
-                            goto __pyx_L15;
-                            __pyx_L15:;
-                            #ifdef _OPENMP
-                            #pragma omp critical(__pyx_parallel_lastprivates0)
-                            #endif /* _OPENMP */
-                            {
-                                __pyx_parallel_temp0 = __pyx_v_high;
-                                __pyx_parallel_temp1 = __pyx_v_i;
-                                __pyx_parallel_temp2 = __pyx_v_low;
-                            }
-                            __pyx_L16:;
-                            #ifdef _OPENMP
-                            #pragma omp flush(__pyx_parallel_why)
-                            #endif /* _OPENMP */
                         }
                     }
-                    #ifdef _OPENMP
-                    Py_END_ALLOW_THREADS
-                    #else
-{
-#ifdef WITH_THREAD
-                    PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
-                    #endif
-                    #endif /* _OPENMP */
-                    /* Clean up any temporaries */
-                    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-                    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-                    __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-                    #ifdef WITH_THREAD
-                    __Pyx_PyGILState_Release(__pyx_gilstate_save);
-                    #endif
-                    #ifndef _OPENMP
-}
-#endif /* _OPENMP */
                 }
-            }
-            if (__pyx_parallel_exc_type) {
-              /* This may have been overridden by a continue, break or return in another thread. Prefer the error. */
-              __pyx_parallel_why = 4;
-            }
-            if (__pyx_parallel_why) {
-              __pyx_v_high = __pyx_parallel_temp0;
-              __pyx_v_i = __pyx_parallel_temp1;
-              __pyx_v_low = __pyx_parallel_temp2;
-              switch (__pyx_parallel_why) {
-                    case 4:
-                {
-                    #ifdef WITH_THREAD
-                    PyGILState_STATE __pyx_gilstate_save = __Pyx_PyGILState_Ensure();
-                    #endif
-                    __Pyx_GIVEREF(__pyx_parallel_exc_type);
-                    __Pyx_ErrRestoreWithState(__pyx_parallel_exc_type, __pyx_parallel_exc_value, __pyx_parallel_exc_tb);
-                    __pyx_filename = __pyx_parallel_filename; __pyx_lineno = __pyx_parallel_lineno; __pyx_clineno = __pyx_parallel_clineno;
-                    #ifdef WITH_THREAD
-                    __Pyx_PyGILState_Release(__pyx_gilstate_save);
-                    #endif
-                }
-                goto __pyx_L4_error;
-              }
             }
         }
         #if ((defined(__APPLE__) || defined(__OSX__)) && (defined(__GNUC__) && (__GNUC__ > 2 || (__GNUC__ == 2 && (__GNUC_MINOR__ > 95)))))
@@ -18499,18 +18377,11 @@ static PyObject *__pyx_f_19parallel_merge_sort_divide(__Pyx_memviewslice __pyx_v
           #endif
           goto __pyx_L5;
         }
-        __pyx_L4_error: {
-          #ifdef WITH_THREAD
-          __Pyx_FastGIL_Forget();
-          Py_BLOCK_THREADS
-          #endif
-          goto __pyx_L1_error;
-        }
         __pyx_L5:;
       }
   }
 
-  /* "parallel_merge_sort.pyx":99
+  /* "parallel_merge_sort.pyx":98
  *             merge_sort(arr, low, high, left_arr, right_arr)
  * 
  *     merge(arr, left_arr, right_arr, 0, chunk-1, size-1)             # <<<<<<<<<<<<<<
@@ -18547,7 +18418,7 @@ static PyObject *__pyx_f_19parallel_merge_sort_divide(__Pyx_memviewslice __pyx_v
   return __pyx_r;
 }
 
-/* "parallel_merge_sort.pyx":102
+/* "parallel_merge_sort.pyx":101
  * 
  * 
  * def sort(long long[:] arr):             # <<<<<<<<<<<<<<
@@ -18607,23 +18478,23 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 102, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 101, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "sort") < 0)) __PYX_ERR(0, 102, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "sort") < 0)) __PYX_ERR(0, 101, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
     }
-    __pyx_v_arr = __Pyx_PyObject_to_MemoryviewSlice_ds_PY_LONG_LONG(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_arr.memview)) __PYX_ERR(0, 102, __pyx_L3_error)
+    __pyx_v_arr = __Pyx_PyObject_to_MemoryviewSlice_ds_PY_LONG_LONG(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_arr.memview)) __PYX_ERR(0, 101, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("sort", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 102, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("sort", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 101, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -18661,16 +18532,16 @@ static PyObject *__pyx_pf_19parallel_merge_sort_sort(CYTHON_UNUSED PyObject *__p
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("sort", 1);
 
-  /* "parallel_merge_sort.pyx":103
+  /* "parallel_merge_sort.pyx":102
  * 
  * def sort(long long[:] arr):
  *     divide(arr)             # <<<<<<<<<<<<<<
  */
-  __pyx_t_1 = __pyx_f_19parallel_merge_sort_divide(__pyx_v_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_19parallel_merge_sort_divide(__pyx_v_arr); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "parallel_merge_sort.pyx":102
+  /* "parallel_merge_sort.pyx":101
  * 
  * 
  * def sort(long long[:] arr):             # <<<<<<<<<<<<<<
@@ -19956,16 +19827,16 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__18);
   __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__18, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_Enum, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 1, __pyx_L1_error)
 
-  /* "parallel_merge_sort.pyx":102
+  /* "parallel_merge_sort.pyx":101
  * 
  * 
  * def sort(long long[:] arr):             # <<<<<<<<<<<<<<
  *     divide(arr)
  */
-  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_n_s_arr); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_tuple__20 = PyTuple_Pack(1, __pyx_n_s_arr); if (unlikely(!__pyx_tuple__20)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
-  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_parallel_merge_sort_pyx, __pyx_n_s_sort, 102, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_codeobj__21 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 1, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__20, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_parallel_merge_sort_pyx, __pyx_n_s_sort, 101, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__21)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -21034,15 +20905,15 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_7) < 0) __PYX_ERR(0, 2, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "parallel_merge_sort.pyx":102
+  /* "parallel_merge_sort.pyx":101
  * 
  * 
  * def sort(long long[:] arr):             # <<<<<<<<<<<<<<
  *     divide(arr)
  */
-  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_19parallel_merge_sort_1sort, 0, __pyx_n_s_sort, NULL, __pyx_n_s_parallel_merge_sort, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_CyFunction_New(&__pyx_mdef_19parallel_merge_sort_1sort, 0, __pyx_n_s_sort, NULL, __pyx_n_s_parallel_merge_sort, __pyx_d, ((PyObject *)__pyx_codeobj__21)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sort, __pyx_t_7) < 0) __PYX_ERR(0, 102, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sort, __pyx_t_7) < 0) __PYX_ERR(0, 101, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "parallel_merge_sort.pyx":1
