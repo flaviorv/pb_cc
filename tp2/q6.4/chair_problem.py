@@ -10,7 +10,11 @@ def count_ways_to_paint_chairs(chairs, colors):
 
     return f"There is {possibilities} possibilities" if possibilities > 0 else "It is not possible to paint all the chairs"
 
-chairs = 4
-colors = 5
-print(count_ways_to_paint_chairs(chairs, colors))
+def show(chairs, colors):
+    print(f"Chairs: {chairs}  Colors: {colors}")
+    print(count_ways_to_paint_chairs(chairs, colors))
+
+show(4,5)
+show(3,3)
+show(3,2)
 #This algorithm is O(n) time complexity
