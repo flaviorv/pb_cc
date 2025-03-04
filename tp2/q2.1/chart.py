@@ -18,6 +18,7 @@ def generate_chart():
         plt.ylabel(ylabel)
         plt.title(title)
         plt.savefig(f"{d["arr_type"]}_times.png")
+        plt.savefig(f"../data/charts/quick_sort_with_{d["arr_type"]}.png")
 
 if __name__ == "__main__":
     generate_chart()

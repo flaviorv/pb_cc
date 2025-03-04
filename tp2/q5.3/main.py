@@ -10,7 +10,7 @@ start = time()
 array = np.random.randint(0, _range+1, size=length)
 copy = np.array(array)
 checklist = np.array(array)
-print("List created in {round((time() - start), 3)} seconds")
+print(f"List created in {round((time() - start), 3)} seconds")
 
 print(f"Sorting sequentially...")
 start = time()

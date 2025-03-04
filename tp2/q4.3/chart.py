@@ -24,7 +24,8 @@ def generate_chart():
     plt.title("Torre de Hanói - Tempo exponencial - O(2ⁿ)")
     plt.xlabel("Discos")
     plt.ylabel("Segundos")
-    plt.savefig("times_chart.png")
+    plt.savefig("../data/charts/hanoi.png")
+
 
 
 if __name__ == "__main__":
