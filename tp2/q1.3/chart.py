@@ -15,8 +15,8 @@ def create_chart():
     plt.plot(threads, times)
     plt.xlabel("Threads")
     plt.ylabel("Seconds")
-    plt.title("Runtime of filter applying")
-    plt.savefig("times_chart.png")
+    plt.title("Runtime of image filter applying")
+    plt.savefig("../data/charts/imgs_edting.png")
 
 
 if __name__ == "__main__":

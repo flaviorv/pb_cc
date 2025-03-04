@@ -51,6 +51,7 @@ def init(discs):
         return "Discs must be greater than 0"
     elif isinstance(discs, int) == False:
         return "Discs must be an integer"
+    print("---------------------------------------------------------------")
     print("The Tower of Hanoi")
     print(f"Movements: {2**discs-1}")
     hanoi(discs, {"Left": discs}, {"Right": 0}, {"Aux": 0})

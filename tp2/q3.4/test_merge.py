@@ -4,6 +4,8 @@ from merge_sort import merge, DLinkedList
 class Test(unittest.TestCase):
     
     def test_empty_dll(self):
+        print("----Testing a method that receives two sorted doubly linked lists and return a sorted one that is a merge of the two----")
+        print("Empty DLL test")
         dll1 = DLinkedList()
         dll2 = DLinkedList()
         dll2.insert(10)
@@ -17,6 +19,7 @@ class Test(unittest.TestCase):
 
 
     def test_many_nodes(self):
+        print("Testing the merge with many nodes")
         dll1 = DLinkedList()
         dll2 = DLinkedList()
 
@@ -48,6 +51,7 @@ class Test(unittest.TestCase):
 
 
     def test_two_nodes(self):
+        print("Testing the merge with two nodes")
         dll1 = DLinkedList()
         dll2 = DLinkedList()
         dll1.insert(20)

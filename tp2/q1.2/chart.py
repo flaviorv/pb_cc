@@ -20,7 +20,7 @@ def generate_chart():
         plt.xlabel("Cost of sums and generating lists")
         plt.ylabel("Seconds")
         plt.title(title)
-        plt.savefig(f"s{len}.png")
+        plt.savefig(f"../data/charts/parallel_sum_s{len}.png")
 
 
 if __name__ == "__main__":
