@@ -9,7 +9,7 @@ def permute(output, input):
             memory.add(input[i])
             permute(output + input[i], input[:i] + input[i+1:])
 
-#This recurive function to permute has time complexity O(n!)
+#This recurive function to permute has time complexity O(n x n!)
 
 input = input("Type anything to permute it: ")
 permute("", input)
