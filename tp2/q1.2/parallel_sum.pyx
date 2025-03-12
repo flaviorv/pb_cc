@@ -4,7 +4,6 @@ from cython.parallel import prange
 import numpy as np
 cimport numpy as np
 import time
-from random import randrange
 
 def sum(unsigned long size, unsigned long max_range):
     cdef unsigned long i

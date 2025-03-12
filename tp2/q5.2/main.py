@@ -5,7 +5,7 @@ from random import randrange
 from time import time
 
 start = 5
-end = 80_000_005
+end = 60_000_005
 time_s = time()
 for _ in range(5):    
     print(f"\33[34mCreating an Array as a Binary Tree...\33[0m")
@@ -24,7 +24,7 @@ for _ in range(5):
     time_s = time()
     print(sequential_bs(arr, randrange(0, len(arr)-1)))
     print(sequential_bs(arr, 0))
-    print(f"seconds", round(round((time() - time_s), 3)), "\33[0m")
+    print(f"Time:", round(round((time() - time_s), 3)), "seconds\33[0m")
 
 
 #the sequential code took 0 seconds too

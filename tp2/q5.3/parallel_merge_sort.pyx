@@ -12,7 +12,6 @@ cdef void merge(long long[:] arr, long long[:] left_arr, long long[:] right_arr,
         for i in range(first, mid+1):
             left_arr[left_index] = arr[i]
             left_index += 1 
-
         
         for i in range(mid + 1, last +1):
             right_arr[right_index] = arr[i]
@@ -20,7 +19,6 @@ cdef void merge(long long[:] arr, long long[:] left_arr, long long[:] right_arr,
 
         left_size = left_index
         right_size = right_index
-        
         left_index = 0
         right_index = 0
 
@@ -30,19 +28,16 @@ cdef void merge(long long[:] arr, long long[:] left_arr, long long[:] right_arr,
                 arr[index] = left_arr[left_index]
                 left_index += 1
             else:
-            
                 arr[index] = right_arr[right_index]
                 right_index += 1
             index += 1
 
-        while left_index < left_size:
-        
+        while left_index < left_size:   
             arr[index] = left_arr[left_index]
             left_index += 1
             index += 1
 
         while right_index < right_size:
-        
             arr[index] = right_arr[right_index]
             right_index += 1
             index += 1
@@ -54,10 +49,7 @@ cdef void merge_sort(long long[:] arr, unsigned long low, unsigned long high, lo
     cdef unsigned long middle_index
     cdef unsigned long last_index
     cdef unsigned long first_index
-    with gil:
-        print(f"Current thread: {threadid()}")
     
-
     while subs_size < (high - low +1):
         first_index = low
 

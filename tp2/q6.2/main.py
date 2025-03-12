@@ -22,8 +22,8 @@ def longest_common_substring(string1, string2):
     start_index = substring_end_index - longest_length
     return string1[start_index:substring_end_index], longest_length
 
-len1 = 150
-len2 = 150
+len1 = 100
+len2 = 100
 string1 = ''.join(choices(string.ascii_lowercase, k=len1))
 string2 = ''.join(choices(string.ascii_lowercase, k=len2))
 

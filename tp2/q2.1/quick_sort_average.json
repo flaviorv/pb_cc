@@ -1,23 +1,23 @@
 [
   {
     "arr_type": "unordered",
-    "start": 0.0186,
-    "middle": 0.0197,
-    "end": 0.0186,
-    "random": 0.0243
+    "start": 0.0257,
+    "middle": 0.0252,
+    "end": 0.0244,
+    "random": 0.0265
   },
   {
     "arr_type": "ordered",
-    "start": 0.9281,
-    "middle": 0.0144,
-    "end": 3.9933,
-    "random": 0.0216
+    "start": 0.8516,
+    "middle": 0.0156,
+    "end": 3.9828,
+    "random": 0.0238
   },
   {
     "arr_type": "inverse",
-    "start": 2.5038,
-    "middle": 0.0146,
-    "end": 2.5041,
-    "random": 0.0189
+    "start": 2.5071,
+    "middle": 0.0155,
+    "end": 2.4525,
+    "random": 0.0215
   }
 ]
