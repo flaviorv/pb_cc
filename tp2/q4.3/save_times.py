@@ -19,6 +19,3 @@ def save_times(discs_sequence):
     with open("times.json", "w") as f:
         f.write(content)
         
-
-if __name__ == "__main__":
-    save_times(23)

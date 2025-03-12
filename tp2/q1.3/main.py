@@ -48,7 +48,7 @@ def main():
     
     with open("./times.json", "w") as f:
         json_data = json.dumps(content, indent=2)
-        f.write(json_data)
+        f.write(json_data)  
 
 
 if __name__ == "__main__":

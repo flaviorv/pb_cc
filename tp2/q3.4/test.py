@@ -27,7 +27,6 @@ class InsertionSortTest(unittest.TestCase):
             insertion_sort(dll, DNode)
             checklist.sort()
             
-            
             if dll.head != None:
                 current = dll.head
             else:

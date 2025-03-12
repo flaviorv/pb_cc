@@ -1,34 +1,34 @@
 [
   {
     "threads": 8,
-    "seconds": 1.9406
+    "seconds": 1.9073
   },
   {
     "threads": 7,
-    "seconds": 1.8178
+    "seconds": 1.8212
   },
   {
     "threads": 6,
-    "seconds": 2.1753
+    "seconds": 1.9868
   },
   {
     "threads": 5,
-    "seconds": 2.0896
+    "seconds": 2.0987
   },
   {
     "threads": 4,
-    "seconds": 2.2054
+    "seconds": 2.3009
   },
   {
     "threads": 3,
-    "seconds": 2.8414
+    "seconds": 2.7429
   },
   {
     "threads": 2,
-    "seconds": 3.8916
+    "seconds": 3.8772
   },
   {
     "threads": 1,
-    "seconds": 7.2875
+    "seconds": 7.2295
   }
 ]
