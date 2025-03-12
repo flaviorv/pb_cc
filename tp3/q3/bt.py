@@ -8,7 +8,6 @@ class Node:
         self.right = None
 
 def add(root, values):
-    values.sort()
     return __add(values, 0, len(values) - 1)
 
 def __add(values, start, end):
@@ -75,7 +74,7 @@ def main():
     print("Search:")
     for _ in range(20):
         n = random.randrange(1, 101)
-        print(n, "found") if parallel_search(root, n) else print(n, "not found")
+        print(f"\33[32m{n} found\33[0m") if parallel_search(root, n) else print(f"\33[31m{n} not found\33[0m")
 
 if __name__ == "__main__":
     main()
