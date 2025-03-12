@@ -109,9 +109,9 @@ def __dfs_path(root, value, queue):
 
     queue.put(None)
 
-def dfs_path(root, target):
+def dfs_path(root, value):
     queue = multiprocessing.Queue()
-    __parallel_dfs(root, target, queue)
+    __parallel_dfs(root, value, queue)
     return queue.get()
 
 def print_tree(root):
@@ -120,6 +120,53 @@ def print_tree(root):
         print(root.value, end=" ")
         print_tree(root.right)
 
+def __parallel_max(root, queue):
+    if root is None:
+        queue.put(float('-inf'))
+        return
+
+    left_queue = multiprocessing.Queue()
+    right_queue = multiprocessing.Queue()
+    left_process = right_process = None
+    if root.left:
+        left_process = multiprocessing.Process(target=__find_max, args=(root.left, left_queue))
+        left_process.start()
+
+    if root.right:
+        right_process = multiprocessing.Process(target=__find_max, args=(root.right, right_queue))
+        right_process.start()
+
+    left_max = right_max = float('-inf')
+    if left_process:
+        left_process.join()
+        left_max = left_queue.get()
+
+    if right_process:
+        right_process.join()
+        right_max = right_queue.get()
+
+    max_value = max(root.value, left_max, right_max)
+    queue.put(max_value)
+
+def __find_max(root, queue):
+    max_value = float('-inf')
+    stack = [root] if root else []
+
+    while stack:
+        node = stack.pop()
+        if node:
+            max_value = max(max_value, node.value)
+            if node.left:
+                stack.append(node.left)
+            if node.right:
+                stack.append(node.right)
+
+    queue.put(max_value)
+
+def parallel_max(root):
+    queue = multiprocessing.Queue()
+    __parallel_max(root, queue)
+    return queue.get()
 
 def main():
     root = Node(random.randrange(1, 101))
@@ -128,14 +175,14 @@ def main():
     print("Tree elements:")
     print_tree(root)
     print()
-    print("Search:")
+    # print("Search:")
     for _ in range(20):
         n = random.randrange(1, 101)
-       # print(f"\33[32m{n} found\33[0m") if parallel_search(root, n) else print(f"\33[31m{n} not found\33[0m")
-
-        path = dfs_path(root, n)
-        print(f"\33[32mUntil {n}: {path}\33[0m") if path else print(f"\33[31m{n} not found\33[0m")
-
+        # print(f"\33[32m{n} found\33[0m") if parallel_search(root, n) else print(f"\33[31m{n} not found\33[0m")
+        # path = dfs_path(root, n)
+        # print(f"\33[32mUntil {n}: {path}\33[0m") if path else print(f"\33[31m{n} not found\33[0m")
+    max = parallel_max(root)
+    print(f"Max value:", max)
 
 if __name__ == "__main__":
     main()
