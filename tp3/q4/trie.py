@@ -78,10 +78,10 @@ if __name__ == "__main__":
         trie.insert(network)
     ipv6 = "2001:db8:1234:5678::1"
     response, iterations = trie.longest_prefix_match(ipv6)
-    print(f"Trie longest prefix match: {response if response else "Not found"}")
+    print(f"Trie longest prefix match of {ipv6}: {response if response else "Not found"}")
     ipv4 = "192.168.1.100"
     response, iterations = trie.longest_prefix_match(ipv4)
-    print(f"Trie longest prefix match: {response if response else "Not found"}")
+    print(f"Trie longest prefix match of {ipv4}: {response if response else "Not found"}")
 
     ipv4_trie = Trie()
     ipv4_networks = []
@@ -95,7 +95,7 @@ if __name__ == "__main__":
     ipv4 = "192.168.200"
     start = time.time()
     response, iterations = ipv4_trie.longest_prefix_match(ipv4)
-    print(f"Trie longest prefix match: {response if response else "Not found"} Time: {round((time.time() - start), 3)} seconds Iterations: {iterations}")
+    print(f"Trie longest prefix match of {ipv4}: {response if response else "Not found"} Time: {round((time.time() - start), 3)} seconds Iterations: {iterations}")
     start = time.time()
     response, iterations = linear_longest_prefix_match(ipv4_networks, ipv4)
-    print(f"Linear longest prefix match: {response if response else "Not found"} Time: {round((time.time() - start), 3)} seconds Iterations: {iterations}")
+    print(f"Linear longest prefix match of {ipv4}: {response if response else "Not found"} Time: {round((time.time() - start), 3)} seconds Iterations: {iterations}")
