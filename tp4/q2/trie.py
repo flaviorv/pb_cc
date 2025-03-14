@@ -25,9 +25,21 @@ class Trie:
         _dfs(self.root, "", words)
         return words
 
+    def search(self, word):
+        node = self.root
+        for char in word:
+            if char not in node.children:
+                return False
+            node = node.children[char]
+        return node.is_end
+
 if __name__ == "__main__":
     words = ["cachorro", "carro", "casa", "computador", "cadeira", "caneta", "camisa", "caderno", "cartão", "chuva"]
     trie = Trie()
     for word in words:
         trie.insert(word)
     print(trie.all_words())
+    i = 1
+    while i != "0":
+        i = str(input("Type a word or 0 to exit: "))
+        print(trie.search(i))
