@@ -57,16 +57,43 @@ class Trie:
             self.after_match(node.children[keys[i]], response, all)
             response = matched
 
+    def delete(self, word):
+        def _delete(node, word, depth):
+            if depth == len(word):
+                if not node.is_end:
+                    print(f"{word} not found to be removed")
+                    return False
+                node.is_end = False
+                print(f"{word} removed")
+                return len(node.children) == 0
+            char = word[depth]
+            if char not in node.children:
+                print(f"{word} not found to be removed")
+                return False
+            should_delete_child = _delete(node.children[char], word, depth + 1)
+            if should_delete_child:
+                del node.children[char]
+                return len(node.children) == 0 and not node.is_end
+            return False
+        _delete(self.root, word, 0)
+
 if __name__ == "__main__":
-    words = ["apple", "apricot", "autocomplete", "best", "banana", "basket", "car", "cat",
+    words = ["apple", "apricot", "autocomplete", "best", "banana", "basket", "car", "cat", "cap"
         "dog", "door", "elephant", "engine", "engineer", "island", "jacket", "keyboard", "house"]
 
     trie = Trie()
     for word in words:
         trie.insert(word)
-    i = 1
     print(f"Words: {trie.all_words()}")
-    while i != "0":
-        i = str(input("Type a prefix to autocomplete or 0 to exit: "))
-        print(f"Matches: {trie.matches(i)}")
-        print()
+    word = "apple"
+    print(f"Is {word} in the trie:", trie.search(word))
+    word = "computer"
+    print(f"Is {word} in the trie:", trie.search(word))
+    prefixes = ["ap", "a", "ba", "ho", "aa", "ca"]
+    for prefix in prefixes:
+        print(f"Autocomplete of {prefix}: {trie.matches(prefix)}")
+    trie.delete("apple")
+    trie.delete("a")
+    trie.delete("doorr")
+    prefix = "ap"
+    print(f"Autocomplete of {prefix}: {trie.matches(prefix)}")
