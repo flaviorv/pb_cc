@@ -33,13 +33,40 @@ class Trie:
             node = node.children[char]
         return node.is_end
 
+    def matches(self, prefix):
+        response = ""
+        all = []
+        node = self.root
+        for char in prefix:
+            if char not in node.children:
+                return "Not found"
+            response+=char
+            if node.is_end == True:
+                all.append(response)
+            node = node.children[char]
+        self.after_match(node, response, all)
+        return all
+
+    def after_match(self, node, response, all):
+        matched = response
+        keys = list(node.children.keys())
+        if node.is_end == True:
+            all.append(response)
+        for i in range(len(keys)):
+            response += keys[i]
+            self.after_match(node.children[keys[i]], response, all)
+            response = matched
+
 if __name__ == "__main__":
-    words = ["cachorro", "carro", "casa", "computador", "cadeira", "caneta", "camisa", "caderno", "cartão", "chuva"]
+    words = ["apple", "apricot", "autocomplete", "best", "banana", "basket", "car", "cat",
+        "dog", "door", "elephant", "engine", "engineer", "island", "jacket", "keyboard", "house"]
+
     trie = Trie()
     for word in words:
         trie.insert(word)
-    print(trie.all_words())
     i = 1
+    print(f"Words: {trie.all_words()}")
     while i != "0":
-        i = str(input("Type a word or 0 to exit: "))
-        print(trie.search(i))
+        i = str(input("Type a prefix to autocomplete or 0 to exit: "))
+        print(f"Matches: {trie.matches(i)}")
+        print()
