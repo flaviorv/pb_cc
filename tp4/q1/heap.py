@@ -4,6 +4,7 @@ class MinHeap:
         self.heap = []
 
     def insert(self, person):
+        print(f"Adding {person["priority"]}")
         self.heap.append(person)
         self._heapify_up(len(self.heap) - 1)
 
@@ -18,33 +19,69 @@ class MinHeap:
         for person in queue:
             self.insert(person)
 
-    def show(self):
-        print(self.heap)
+    def show(self, type=None):
+        print("Min Heap:", end=" ")
+        if type == "priority" or type == "person":
+            for i in self.heap:
+                print(i[type], end=" ")
+            print()
+        else:
+            print(self.heap)
+
+    def search(self, element, type="person"):
+        print(f"Is {element} in the queue?")
+        if type == "priority" and element < self.heap[0]["priority"]:
+            print("False. It was no needed to go through the list")
+            return False
+        for i in self.heap:
+            if element == i[type]:
+                print("True")
+                return True
+        print("False")
+        return False
+
+    def pop(self):
+        if len(self.heap) == 0:
+            print("There is nothing to remove")
+            return None
+        if len(self.heap) == 1:
+            return self.heap.pop()
+        root = self.heap[0]
+        self.heap[0] = self.heap.pop()
+        self._heapify_down(0)
+        print(f"Root {root} removed")
+        return root
+
+    def _heapify_down(self, index):
+        smallest = index
+        left_child = 2 * index + 1
+        right_child = 2 * index + 2
+        if left_child < len(self.heap) and self.heap[left_child]["priority"] < self.heap[smallest]["priority"]:
+            smallest = left_child
+        if right_child < len(self.heap) and self.heap[right_child]["priority"] < self.heap[smallest]["priority"]:
+            smallest = right_child
+        if smallest != index:
+            self.heap[index], self.heap[smallest] = self.heap[smallest], self.heap[index]
+            self._heapify_down(smallest)
+
+    def show_root(self):
+        print(f"The root is {self.heap[0]}")
 
 if __name__ == "__main__":
     queue = [
-        {"priority": randrange(1, 10), "person": "Amanda"},
-        {"priority": randrange(1, 10), "person": "Bruno"},
-        {"priority": randrange(1, 10), "person": "Carlos"},
-        {"priority": randrange(1, 10), "person": "Daniela"},
-        {"priority": randrange(1, 10), "person": "Eduardo"},
-        {"priority": randrange(1, 10), "person": "Fernanda"},
-        {"priority": randrange(1, 10), "person": "Gabriel"},
-        {"priority": randrange(1, 10), "person": "Helena"},
-        {"priority": randrange(1, 10), "person": "Igor"},
-        {"priority": randrange(1, 10), "person": "Juliana"},
-        {"priority": randrange(1, 10), "person": "Kleber"},
-        {"priority": randrange(1, 10), "person": "Larissa"},
-        {"priority": randrange(1, 10), "person": "Marcelo"},
-        {"priority": randrange(1, 10), "person": "Natália"},
-        {"priority": randrange(1, 10), "person": "Otávio"},
-        {"priority": randrange(1, 10), "person": "Patrícia"},
-        {"priority": randrange(1, 10), "person": "Rafael"},
-        {"priority": randrange(1, 10), "person": "Simone"},
-        {"priority": randrange(1, 10), "person": "Tiago"},
-        {"priority": randrange(1, 10), "person": "Vanessa"}
+        {"priority": 5, "person": "Amanda"},
+        {"priority": 2, "person": "Bruno"},
+        {"priority": 3, "person": "Carlos"},
+        {"priority": 7, "person": "Daniela"},
+        {"priority": 1, "person": "Eduardo"},
     ]
 
     heap = MinHeap()
     heap.insert_queue(queue)
-    heap.show()
+    heap.show("priority")
+    heap.show_root()
+    heap.insert({"priority": 0, "person": "João"})
+    heap.show_root()
+    heap.search(7, "priority")
+    heap.pop()
+    heap.show_root()
