@@ -31,7 +31,9 @@ class Trie:
             if char not in node.children:
                 return False
             node = node.children[char]
-        return node.is_end
+        if node.is_end:
+            return True
+        return False
 
     def matches(self, prefix):
         response = ""
@@ -78,7 +80,7 @@ class Trie:
         _delete(self.root, word, 0)
 
 if __name__ == "__main__":
-    words = ["apple", "apricot", "autocomplete", "best", "banana", "basket", "car", "cat", "cap"
+    words = ["apple", "apricot", "autocomplete", "best", "banana", "basket", "car", "cat", "cap",
         "dog", "door", "elephant", "engine", "engineer", "island", "jacket", "keyboard", "house"]
 
     trie = Trie()
