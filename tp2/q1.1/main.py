@@ -3,15 +3,7 @@ import time
 
 
 print("ASYNCHRONOUS HTTP REQUESTS")
-async_req.call_requests(2)
-time.sleep(10)
-async_req.call_requests(4)
-time.sleep(10)
-async_req.call_requests(8)
-time.sleep(10)
-async_req.call_requests(16)
-time.sleep(10)
-async_req.call_requests(32)
+async_req.call_requests()
 
 print("SEQUENTIAL HTTP REQUESTS")
 start = time.time()

@@ -10,6 +10,7 @@ def __get_files(dir):
             for content in directory:
                 if content.is_file(follow_symlinks=False):
                     files.append(content.name)
+                    print(content.name)
     except PermissionError:
         print(f"Access denied")
 
@@ -34,8 +35,10 @@ def __spawn_chart():
     plt.ylabel("Seconds")
     plt.title("Execution Time of HTTP Requests")
     plt.savefig("../data/charts/http_requests.png")
+    print("feito")
 
 def spawn_chart():
     __get_files(dir)
     __fill()
     __spawn_chart()
+
