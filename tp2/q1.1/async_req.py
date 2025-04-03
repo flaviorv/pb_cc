@@ -4,15 +4,11 @@ import aiohttp
 import aiofiles
 import os
 import json
-from concurrent.futures import ThreadPoolExecutor
 from urls import urls
 
-def drink_requests(session, urls):
-    responses = []
-    for url in urls:
-        response = session.get(url)
-        responses.append(response)
-    return responses
+async def fetch(session, url):
+    async with session.get(url) as response:
+        return await response.json()
 
 async def save_drink(drink_name, drink_content):
     path = f"./drinks/{drink_name}.json"
@@ -21,22 +17,20 @@ async def save_drink(drink_name, drink_content):
         drink_json = json.dumps(drink_content, indent=2)
         await f.write(drink_json)
 
-
-async def get_drinks(urls):
+async def get_drinks(urls, max_concurrent):
+    semaphore = asyncio.Semaphore(max_concurrent)
     async with aiohttp.ClientSession() as session:
-        tasks = drink_requests(session, urls)
+        async def limited_fetch(url):
+            async with semaphore:
+                return await fetch(session, url)
+        tasks = [limited_fetch(url) for url in urls]
         responses = await asyncio.gather(*tasks)
-        for response in responses:
-            data = await response.json()
-            if data["drinks"] != None:
+        for data in responses:
+            if data and "drinks" in data and data["drinks"]:
                 drink = data["drinks"][0]
                 drink_name = drink['strDrink']
                 print(drink_name)
-                await save_drink(drink_name, drink)      
-
-
-def loop(urls):    
-    asyncio.run(get_drinks(urls))
+                await save_drink(drink_name, drink)
 
 def save_time(time_data):
     path = f"./times/threads_{time_data['threads']}.json"
@@ -44,29 +38,16 @@ def save_time(time_data):
     with open(path, "w") as f:
         time_data = json.dumps(time_data, indent=2)
         f.write(time_data)
-        
-def call_requests(threads):
+
+def run_experiment(threads):
     start = time.time()
-    chunks = [urls[i::threads] for i in range(threads)]
-    
-    with ThreadPoolExecutor(max_workers=threads) as executor:
-        executor.map(loop, chunks)
-     
+    asyncio.run(get_drinks(urls, threads))
     end = time.time()
-    total_time = round((end-start),2)
-    print("Threads amount: {} Time: {} seconds".format(threads, total_time))
-    time_data = {"threads": threads, "seconds": total_time}
-    save_time(time_data)
-    
-if __name__ == "__main__":
-    call_requests(2)
-    time.sleep(10)
-    call_requests(4)
-    time.sleep(10)
-    call_requests(8)
-    time.sleep(10)
-    call_requests(16)
-    time.sleep(10)
-    call_requests(32)
+    total_time = round((end - start), 2)
+    print(f"Threads: {threads} | Time: {total_time} segundos")
+    save_time({"threads": threads, "seconds": total_time})
 
-
+def call_requests():
+    for threads in [8, 4, 1]:
+        run_experiment(threads)
+        time.sleep(10)
