@@ -4,7 +4,7 @@ def count_ways_to_paint_chairs(chairs, colors):
     possibilities = 1
 
     for chair in range(chairs):
-        if chair == chairs-1 or chair == 1:
+        if chair == 1:
             colors -= 1
         possibilities *= colors
 
@@ -17,4 +17,5 @@ def show(chairs, colors):
 show(4,5)
 show(3,3)
 show(3,2)
+show(4,4)
 #This algorithm is O(n) time complexity
