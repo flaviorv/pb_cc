@@ -12,7 +12,6 @@ def longest_common_substring(string1, string2):
         for j in range(1, len2 + 1):
             if string1[i - 1] == string2[j - 1]:  
                 dp_table[i][j] = dp_table[i - 1][j - 1] + 1
-
                 if dp_table[i][j] > longest_length:
                     longest_length = dp_table[i][j]
                     substring_end_index = i

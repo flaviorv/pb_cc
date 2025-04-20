@@ -179,10 +179,10 @@ def main():
     for _ in range(20):
         n = random.randrange(1, 101)
         # print(f"\33[32m{n} found\33[0m") if parallel_search(root, n) else print(f"\33[31m{n} not found\33[0m")
-        # path = dfs_path(root, n)
-        # print(f"\33[32mUntil {n}: {path}\33[0m") if path else print(f"\33[31m{n} not found\33[0m")
+        path = dfs_path(root, n)
+        print(f"\33[32mUntil {n}: {path}\33[0m") if path else print(f"\33[31m{n} not found\33[0m")
     max = parallel_max(root)
-    print(f"Max value:", max)
+    # print(f"Max value:", max)
 
 if __name__ == "__main__":
     main()

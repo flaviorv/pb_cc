@@ -8,21 +8,17 @@ def hanoi(discs, origin, destination, auxiliary):
     else:
 
         hanoi(discs -1, origin, auxiliary, destination)
-
         print(f"Move disc {discs} from {key(origin)} to {key(destination)}")
         decrease(origin)
         sum(destination)
         show_spindles(origin, auxiliary, destination)
-
         hanoi(discs -1, auxiliary, destination, origin)
      
           
-
 def key(dictionary):
     keys = list(dictionary.keys())
     return keys[0]
     
-
 def sum(dictionary):
     dictionary[key(dictionary)] += 1
 
@@ -42,8 +38,6 @@ def show_spindles(spindle1, spindle2, spindle3):
         if key(spindle) == "Aux":
             aux = spindle[key(spindle)]
     print(f"Spindles's state: {left} {aux} {right}")
-
-
 
 
 def init(discs):

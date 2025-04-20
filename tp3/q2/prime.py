@@ -24,10 +24,8 @@ def parallel_count_primes(start, end):
     chunk = (end - start) // processes
     ranges = [(start + i * chunk, start + (i + 1) * chunk) for i in range(processes)]
     ranges[-1] = (ranges[-1][0], end)
-
     with multiprocessing.Pool(processes=processes) as pool:
         partial_sum = pool.starmap(count_primes, ranges)
-
     return sum(partial_sum)
 
 if __name__ == "__main__":

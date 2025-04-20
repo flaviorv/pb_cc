@@ -4,13 +4,10 @@ def min_coins(value, coins):
     #Time complexity O(value x coins_len)
     dp = [float('inf')] * (value + 1)
     dp[0] = 0
-
     for i in range(1, value + 1):
         for coin in coins:
             if coin <= i:
                 dp[i] = min(dp[i], dp[i - coin] + 1)
-
-    
     return dp[value] if dp[value] != float('inf') else -1
 
 

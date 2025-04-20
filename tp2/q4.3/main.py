@@ -16,7 +16,7 @@ class Test(unittest.TestCase):
         self.assertEqual(hanoi_tower.init(0.5), "Discs must be an integer")
 
 if __name__ == "__main__":
-    save_times(22)
+    save_times(4)
     chart.generate_chart()
     unittest.main()
     

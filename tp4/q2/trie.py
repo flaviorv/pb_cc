@@ -81,7 +81,7 @@ class Trie:
 
 if __name__ == "__main__":
     words = ["apple", "apricot", "autocomplete", "best", "banana", "basket", "car", "cat", "cap",
-        "dog", "door", "elephant", "engine", "engineer", "island", "jacket", "keyboard", "house"]
+        "dog", "door", "elephant", "engine", "engineer", "eng" "island", "jacket", "keyboard", "house"]
 
     trie = Trie()
     for word in words:
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     print(f"Is {word} in the trie:", trie.search(word))
     word = "computer"
     print(f"Is {word} in the trie:", trie.search(word))
-    prefixes = ["ap", "a", "ba", "ho", "aa", "ca"]
+    prefixes = ["ap", "a", "ba", "ho", "aa", "ca", "engine"]
     for prefix in prefixes:
         print(f"Autocomplete of {prefix}: {trie.matches(prefix)}")
     trie.delete("apple")
